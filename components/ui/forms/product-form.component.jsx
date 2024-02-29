@@ -31,8 +31,10 @@ import CustomButton from "../buttons/custom-button.component";
 import CustomInputFieldAlt from "../input/custom-input-field-alt.component";
 import CustomNumberField from "../input/custom-number-field.component";
 import CustomNumberFieldAlt from "../input/custom-number-field-alt.component";
+import { useRouter } from "next/router";
 
 const ProductForm = () => {
+  const router = useRouter();
   const { values, setFieldValue, isSubmitting } = useFormikContext();
 
   useEffect(() => {
@@ -84,6 +86,7 @@ const ProductForm = () => {
                 label="Description"
                 name="description"
                 placeholder="Description"
+                fontSize="sm"
               />
             </VStack>
             <Divider />
@@ -360,6 +363,7 @@ const ProductForm = () => {
                   fontSize="xs"
                   type="button"
                   variant="solid"
+                  onClick={() => router.replace("/products")}
                 >
                   Cancel
                 </CustomButton>
