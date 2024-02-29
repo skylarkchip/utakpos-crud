@@ -1,18 +1,28 @@
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Flex,
   Heading,
   VStack,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa6";
 
+// Components
 import Layout from "@/components/layout/layout.component";
 import ProductFormWrapper from "@/components/ui/forms/product-form-wrapper.component";
 
-function AddNewProductPage() {
+// Hooks
+import useFetchProduct from "@/hooks/useFetchProduct";
+
+function ProductPage() {
+  const router = useRouter();
+  // console.log(router.query.slug[0]);
+  const product = useFetchProduct(router.query.slug);
+
   return (
     <Layout>
       <VStack w="full" align="left" spacing="6">
@@ -20,7 +30,7 @@ function AddNewProductPage() {
           <BreadcrumbItem>
             <BreadcrumbLink
               as={Link}
-              href="#"
+              href="/products"
               _hover={{ textDecoration: "none" }}
               fontSize="sm"
             >
@@ -30,17 +40,19 @@ function AddNewProductPage() {
 
           <BreadcrumbItem isCurrentPage>
             <BreadcrumbLink href="#" fontSize="sm">
-              Create New
+              Product Name
             </BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
-        <Heading as="h1" fontSize="2xl">
-          Create New Product
-        </Heading>
-        <ProductFormWrapper />
+        <Flex justifyContent="space-between" alignItems="center">
+          <Heading as="h1" fontSize="3xl">
+            {product?.name}
+          </Heading>
+        </Flex>
+        <ProductFormWrapper product={product} />
       </VStack>
     </Layout>
   );
 }
 
-export default AddNewProductPage;
+export default ProductPage;

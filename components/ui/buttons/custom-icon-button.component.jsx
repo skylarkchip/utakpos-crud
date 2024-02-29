@@ -7,6 +7,7 @@ function CustomIconButton({
   fontSize,
   icon,
   onChange,
+  type,
   variant,
 }) {
   return (

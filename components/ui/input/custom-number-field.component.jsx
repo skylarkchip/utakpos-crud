@@ -8,19 +8,23 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/react";
-import { Field } from "formik";
+import { useField } from "formik";
 
-function CustomNumberField({ label, name, placeholder, value }) {
+function CustomNumberField(props) {
+  const [field, _, helpers] = useField(props);
   return (
     <FormControl>
-      <FormLabel fontSize="sm">{label}</FormLabel>
-      <NumberInput defaultValue={0} min={0} size="sm" value={value}>
-        <Field
-          as={NumberInputField}
-          name={name}
-          placeholder={placeholder}
-          borderRadius="lg"
-        />
+      <FormLabel htmlFor={props.id} fontSize="sm">
+        {props.label}
+      </FormLabel>
+      <NumberInput
+        defaultValue={0}
+        min={0}
+        size="sm"
+        value={field.value}
+        onChange={(valueString) => helpers.setValue(Number(valueString))}
+      >
+        <NumberInputField borderRadius="lg" />
         <NumberInputStepper>
           <NumberIncrementStepper />
           <NumberDecrementStepper />

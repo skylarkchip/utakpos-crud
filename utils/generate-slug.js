@@ -3,5 +3,6 @@ export function generateSlug(string) {
   let joinString = splitString.join("-");
 
   let slug = joinString.toLowerCase();
+
   return slug;
 }

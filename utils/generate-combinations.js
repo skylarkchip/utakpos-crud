@@ -1,25 +1,25 @@
-export function generateCombinations(variations) {
-  if (variations.length === 0) return [];
-
-  const result = variations.reduce((acc, variation) => {
-    if (acc.length === 0)
-      return variation.options.map((option) => ({
-        [String(variation.type).toLowerCase()]: option,
-      }));
-
-    const newAcc = [];
-
-    acc.forEach((item) => {
-      variation.options.forEach((option) => {
-        newAcc.push({
-          ...item,
-          [String(variation.type).toLowerCase()]: option,
+export function generateCombinations(variations, existingCombinations) {
+  return variations.reduce(
+    (acc, { name, options }) => {
+      const newCombinations = [];
+      acc.forEach((oldCombination) => {
+        options.forEach((option) => {
+          const newCombination = { ...oldCombination, [name]: option };
+          const existingCombination = existingCombinations.find((combination) =>
+            Object.entries(combination).every(([key, value]) => {
+              if (key === "price" || key === "quantity") return true;
+              return newCombination[key] === value;
+            })
+          );
+          newCombinations.push({
+            ...newCombination,
+            price: existingCombination ? existingCombination.price : "",
+            quantity: existingCombination ? existingCombination.quantity : "",
+          });
         });
       });
-    });
-
-    return newAcc;
-  }, []);
-
-  return result;
+      return newCombinations;
+    },
+    [{}]
+  );
 }

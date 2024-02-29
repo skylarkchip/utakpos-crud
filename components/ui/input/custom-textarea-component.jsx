@@ -1,19 +1,19 @@
 import React from "react";
-import { Field } from "formik";
+import { Field, useField } from "formik";
 import { FormControl, FormLabel, Textarea } from "@chakra-ui/react";
 
-function CustomTextArea({ label, name, placeholder }) {
+function CustomTextArea(props) {
+  const [field] = useField(props);
   return (
     <FormControl>
-      <FormLabel fontSize="sm">{label}</FormLabel>
-      <Field
-        as={Textarea}
-        name={name}
-        size="sm"
-        borderRadius="lg"
-        placeholder={placeholder}
-        minHeight="200px"
-        _placeholder={{ fontSize: "xs" }}
+      <FormLabel fontSize="sm" htmlFor={props.id}>
+        {props.label}
+      </FormLabel>
+      <Textarea
+        {...field}
+        {...props}
+        height="250px"
+        _placeholder={{ fontSize: "sm" }}
       />
     </FormControl>
   );

@@ -24,9 +24,7 @@ import Link from "next/link";
 import {
   LuCheckCircle,
   LuEye,
-  LuFileEdit,
   LuPencilLine,
-  LuTrash,
   LuTrash2,
   LuXCircle,
 } from "react-icons/lu";
@@ -198,22 +196,10 @@ function ProductsPage() {
                             size="sm"
                             variant="ghost"
                             onClick={() =>
-                              router.push(`/product/${product.id}`)
+                              router.push(`/product/${product.slug}`)
                             }
                           >
                             View
-                          </Button>
-                        </WrapItem>
-                        <WrapItem>
-                          <Button
-                            color="orange.600"
-                            fontSize="xs"
-                            fontWeight="400"
-                            leftIcon={<LuPencilLine />}
-                            size="sm"
-                            variant="ghost"
-                          >
-                            Edit
                           </Button>
                         </WrapItem>
                         <WrapItem>

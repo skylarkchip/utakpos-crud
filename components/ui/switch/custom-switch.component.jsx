@@ -6,26 +6,27 @@ import {
   FormLabel,
   Switch,
 } from "@chakra-ui/react";
-import { Field } from "formik";
+import { useField } from "formik";
 
-function CustomSwitch({ label, isChecked, name, onChange, helperText }) {
+function CustomSwitch(props) {
+  // console.log(props);
+  const [field] = useField(props);
+
   return (
     <FormControl>
       <Flex gap="2" alignItems="center">
-        <FormLabel fontSize="sm" m="0" color="blackAlpha.800">
-          {label}
+        <FormLabel
+          htmlFor={props.id}
+          fontSize="sm"
+          m="0"
+          color="blackAlpha.800"
+        >
+          {props.label}
         </FormLabel>
-        <Field
-          as={Switch}
-          colorScheme="teal"
-          type="checkbox"
-          name={name}
-          checked={isChecked}
-          onChange={onChange}
-        />
+        <Switch colorScheme="teal" {...field} {...props} />
       </Flex>
-      {helperText && (
-        <FormHelperText fontSize="xs">{helperText}</FormHelperText>
+      {props.helper && (
+        <FormHelperText fontSize="xs">{props.helper}</FormHelperText>
       )}
     </FormControl>
   );
